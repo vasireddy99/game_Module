@@ -60,7 +60,6 @@ def user_hint(board):
             break
 
 
-
 def solved_board(i, j):
     return
 
@@ -77,15 +76,6 @@ def erase(x, y, board):
         print("Point is cleared")
     print_board(board)
 
-def valid_input(value):
-    input_ = int(input("Enter {}: ").format(value))
-
-    while input_ < 0 or input_ > 8:
-        print("Invalid entry please choose any number between 1 to 9")
-        input_ = int(input("Enter Row: "))
-        if 0 >= input_ >= 8:
-            break
-    return input_
 
 def revert(board):
     return

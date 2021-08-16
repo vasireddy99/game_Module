@@ -48,7 +48,7 @@ def solve_sudoku(board):
     row, col, l = [0] * 9, [0] * 9, []
     for i in range(9):
         for j in range(9):
-            if board[i][j] != "0":
+            if board[i][j] != 0:
                 row[i] ^= 1 << int(board[i][j])
                 col[j] ^= 1 << int(board[i][j])
                 subm[i // 3][j // 3] ^= 1 << int(board[i][j])
@@ -71,7 +71,7 @@ def solve_sudoku(board):
                 row[i] ^= 1 << m
                 col[j] ^= 1 << m
                 subm[i // 3][j // 3] ^= 1 << m
-                board[i][j] = str(m)
+                board[i][j] = int(m)
                 if j == 8:
                     work(row, col, subm, i + 1, 0)
                 else:

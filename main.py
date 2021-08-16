@@ -4,20 +4,13 @@ from sudoku_solver import *
 from inputs import *
 
 def user_choice():
-    print("choose either play or solve")
-    x = input()
-    if x =='play':
+    user_input = input("choose either play or solve :")
+    if user_input =='play':
         print('you chose to play, select the board')
-        user_input()
 
-        ## step1####
-        ## board ##
-
-    if x == 'solve':
-        print('You chose to solve, provide the board')
-        #step 2:
-        ## user can provide direct board##
-        board = [[0 for i in range(9)] for i in range(9)]
+    if user_input == 'solve':
+        print('You chose to solve, Please provide the board')
+        board = create_board()
         solve_board(board)
 
 if __name__ == "__main__":
