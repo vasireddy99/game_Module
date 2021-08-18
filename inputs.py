@@ -2,82 +2,91 @@ from play_sudoku import *
 from sudoku_solver import *
 from games import *
 
+
 # def user_input():
-#     print("Enter input '1' or '2' ")
+#     print("Please choose 'easy', 'medium' or 'hard' ")
 #
 #     x = input()
-#     if x =="1":
+#     if x =="easy":
 #         solve_board(game1)
 #
-#     if x =='2':
+#     if x =='medium':
 #         print(game2)
 #
-#     if x =='3':
+#     if x =='hard':
 #         print(game3)
 
 def solve_board(board):
+    sudoku_filled_count = 0
     while True:
+
         print_board(board)
         revert_board = board
         print("select coordinates ")
-        row = int(input("Enter Row: "))
-        while row<0 or row >8:
-            print("Invalid entry please choose any number between 0 to 9")
-            row = int(input("Enter Row: "))
-            if 0>=row>=8:
-                break
+        row = valid_row_input()
+        col = valid_column_input()
+        value = valid_value_input()
 
-        col = int(input ("Enter Column: "))
-        while col<0 or col >8:
-            print("Invalid entry please choose any number between 0 to 9")
-            col = int(input("Enter Col: "))
-            if 0>=col>=8:
-                break
-
-        value = int(input("select in between 1 to 9: "))
-        while value<1 or value >9:
-            print("Invalid entry please choose any number between 1 to 9")
-            value = int(input("Enter Value: "))
-            if 1>=value<=9:
-                break
-
-        if not modify_board(row,col,value,board):
+        if not modify_board(row, col, value, board):
             continue
         if not isValidSudoku(board):
             print("invalid sudoku inputs, Please enter the valid inputs again")
             board = revert_board
             continue
-        print("do you want to select more coordinate, select 'y' or 'n'")
-        selection = input()
-        if selection =='y':
-            continue
-        else:
-            break
-    print("The rest will be solved by bot")
+        sudoku_filled_count += 1
+        if sudoku_filled_count > 9:
+            print("do you want to select more coordinate, select 'y' or 'n'")
+            selection = input()
+            if selection == 'y':
+                continue
+            else:
+                break
+
+    print("The rest will be solved by the bot")
     solve_sudoku(board)
-    print(board)
+    print_board(board)
+
 
 def create_board():
-    board = [[0 for _ in range(9)]for _ in range(9)]
+    board = [[0 for _ in range(9)] for _ in range(9)]
     return board
 
-def valid_input(value):
 
-    input_ = int(input("Enter {}: ").format(value))
+def valid_row_input():
+    try:
+        row = int(input("Enter Row: "))
+    except ValueError:
+        print(" Please input integer")
+        valid_row_input()
+    if row < 0 or row > 8:
+        print("Invalid entry please choose row between 0 to 8")
+        valid_row_input()
+    elif 0 <= row <= 8:
+        return row
 
-    while input_ < 0 or input_ > 8:
-        print("Invalid entry please choose any number between 0 to 9")
-        input_ = int(input("Enter {}: ").format(value))
-        if 0 >= input_ >= 8:
-            break
-    return input_
 
-def valid_input_(value):
-    input_ = int(input("Enter {}: ").format(value))
+def valid_column_input():
+    try:
+        column = int(input("Enter column: "))
+    except ValueError:
+        print(" Please input integer")
+        valid_column_input()
+    if column < 0 or column > 8:
+        print("Invalid entry please choose column between 0 to 8")
+        valid_column_input()
+    elif 0 <= column <= 8:
+        return column
 
-    while input_ < 1 or input_ > 9:
-        print("Invalid entry please choose any number between 1 to 9")
-        input_ = int(input("Enter {}: ").format(value))
-        if 1 >= input_ >= 9:
-            break
-    return input_
+
+def valid_value_input():
+    try:
+        value = int(input("Enter value between 1 to 9: "))
+    except ValueError:
+        print(" Please input integer")
+        valid_value_input()
+    if value < 0 or value > 8:
+        print("Invalid entry please choose value between 1 to 9")
+        valid_value_input()
+    elif 1 <= value <= 9:
+        return value
+
