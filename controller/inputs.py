@@ -1,6 +1,5 @@
-from play_sudoku import *
-from sudoku_solver import *
-from games import *
+from utils.play_sudoku import *
+from utils.sudoku_solver import *
 
 
 # def user_input():
@@ -34,7 +33,7 @@ def solve_board(board):
             board = revert_board
             continue
         sudoku_filled_count += 1
-        if sudoku_filled_count > 9:
+        if sudoku_filled_count > 3:
             print("do you want to select more coordinate, select 'y' or 'n'")
             selection = input()
             if selection == 'y':
