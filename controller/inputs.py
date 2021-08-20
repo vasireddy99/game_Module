@@ -35,13 +35,12 @@ def solve_board(board):
         sudoku_filled_count += 1
         if sudoku_filled_count > 3:
             print("do you want to select more coordinate, select 'y' or 'n'")
-            selection = input()
-            if selection == 'y':
+            if valid_selection_input():
                 continue
             else:
                 break
 
-    print("The rest will be solved by the bot")
+    print("The Sudoku is being solved by bot")
     solve_sudoku(board)
     print_board(board)
 
@@ -89,3 +88,16 @@ def valid_value_input():
     elif 1 <= value <= 9:
         return value
 
+
+def valid_selection_input():
+    try:
+        selection = str(input("Select 'y' or 'n' : "))
+    except ValueError:
+        print("invalid input : please only select either 'y' or 'n' ")
+        valid_selection_input()
+    if selection == 'y' or selection == 'y'.capitalize():
+        return True
+    elif selection == 'n' or selection =='n'.capitalize():
+        return False
+    else:
+        valid_selection_input()

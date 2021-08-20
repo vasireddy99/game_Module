@@ -49,7 +49,6 @@ def modify_board(x, y, v, board):
     return True
 
 
-
 def user_hint(board):
     i, j = 0, 0
     while i and j:
@@ -58,15 +57,6 @@ def user_hint(board):
         if board[i][j] == 0:
             print("The hint for the co-ordinate {} is {}".format('[i][j]', solved_board(i, j)))
             break
-
-
-def solved_board(i, j):
-    return
-
-
-def custom_user_hint(i, j):
-    solved_board(i, j)
-
 
 def erase(x, y, board):
     if board[x][y] == 0:
@@ -77,5 +67,3 @@ def erase(x, y, board):
     print_board(board)
 
 
-def revert(board):
-    return
