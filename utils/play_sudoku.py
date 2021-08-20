@@ -58,6 +58,7 @@ def user_hint(board):
             print("The hint for the co-ordinate {} is {}".format('[i][j]', solved_board(i, j)))
             break
 
+
 def erase(x, y, board):
     if board[x][y] == 0:
         print("The point is already cleared")
@@ -65,5 +66,3 @@ def erase(x, y, board):
         board[x][y] = 0
         print("Point is cleared")
     print_board(board)
-
-

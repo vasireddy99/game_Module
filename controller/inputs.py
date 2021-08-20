@@ -34,7 +34,7 @@ def solve_board(board):
             continue
         sudoku_filled_count += 1
         if sudoku_filled_count > 3:
-            print("do you want to select more coordinate, select 'y' or 'n'")
+            print("do you want to provide more inputs, select 'y' or 'n'")
             if valid_selection_input():
                 continue
             else:
