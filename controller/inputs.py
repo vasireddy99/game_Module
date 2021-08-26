@@ -1,19 +1,26 @@
 from utils.play_sudoku import *
-from utils.sudoku_solver import *
+from utils.solve_sudoku import *
+from utils.games import *
+import time
 
 
-# def user_input():
-#     print("Please choose 'easy', 'medium' or 'hard' ")
-#
-#     x = input()
-#     if x =="easy":
-#         solve_board(game1)
-#
-#     if x =='medium':
-#         print(game2)
-#
-#     if x =='hard':
-#         print(game3)
+def player_input():
+    while True:
+        player_choice = input("Please choose 'easy', 'medium' or 'hard'")
+        if player_choice.upper() not in ['EASY', 'MEDIUM', 'HARD']:
+            print("yes")
+            continue
+        else:
+            break
+    if player_choice.upper() == "EASY":
+        play_board(game1)
+
+    elif player_choice.upper() == "MEDIUM":
+        play_board(game2)
+
+    if player_choice.upper() == "HARD":
+        play_board(game3)
+
 
 def solve_board(board):
     sudoku_filled_count = 0
@@ -21,7 +28,7 @@ def solve_board(board):
 
         print_board(board)
         revert_board = board
-        print("select coordinates ")
+        print("select coordinates on the board")
         row = valid_row_input()
         col = valid_column_input()
         value = valid_value_input()
@@ -33,7 +40,7 @@ def solve_board(board):
             board = revert_board
             continue
         sudoku_filled_count += 1
-        if sudoku_filled_count > 3:
+        if sudoku_filled_count > 9:
             print("do you want to provide more inputs, select 'y' or 'n'")
             if valid_selection_input():
                 continue
@@ -41,63 +48,26 @@ def solve_board(board):
                 break
 
     print("The Sudoku is being solved by bot")
-    solve_sudoku(board)
+    sudoku_solver(board)
     print_board(board)
 
 
-def create_board():
-    board = [[0 for _ in range(9)] for _ in range(9)]
-    return board
-
-
-def valid_row_input():
-    try:
-        row = int(input("Enter Row: "))
-    except ValueError:
-        print(" Please input integer")
-        valid_row_input()
-    if row < 0 or row > 8:
-        print("Invalid entry please choose row between 0 to 8")
-        valid_row_input()
-    elif 0 <= row <= 8:
-        return row
-
-
-def valid_column_input():
-    try:
-        column = int(input("Enter column: "))
-    except ValueError:
-        print(" Please input integer")
-        valid_column_input()
-    if column < 0 or column > 8:
-        print("Invalid entry please choose column between 0 to 8")
-        valid_column_input()
-    elif 0 <= column <= 8:
-        return column
-
-
-def valid_value_input():
-    try:
-        value = int(input("Enter value between 1 to 9: "))
-    except ValueError:
-        print(" Please input integer")
-        valid_value_input()
-    if value < 0 or value > 8:
-        print("Invalid entry please choose value between 1 to 9")
-        valid_value_input()
-    elif 1 <= value <= 9:
-        return value
-
-
-def valid_selection_input():
-    try:
-        selection = str(input("Select 'y' or 'n' : "))
-    except ValueError:
-        print("invalid input : please only select either 'y' or 'n' ")
-        valid_selection_input()
-    if selection == 'y' or selection == 'y'.capitalize():
-        return True
-    elif selection == 'n' or selection =='n'.capitalize():
-        return False
-    else:
-        valid_selection_input()
+def play_board(board):
+    start_time = time.time()
+    while True:
+        print_board(board)
+        row = valid_row_input()
+        col = valid_column_input()
+        value = valid_value_input()
+        if modify_board(row, col, value, board):
+            if isValidSudoku(board):
+                pass
+            else:
+                print("invalid sudoku inputs, Please enter the valid inputs again")
+                continue
+        if board_full(board):
+            end_time = time.time()
+            print("you did it")
+            score = caluclate_score(start_time, end_time)
+            print("player score is {}".format(score))
+            break

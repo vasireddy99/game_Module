@@ -1,5 +1,5 @@
 import unittest
-from utils.sudoku_solver import *
+from utils.solve_sudoku import *
 from mock_data import *
 
 
